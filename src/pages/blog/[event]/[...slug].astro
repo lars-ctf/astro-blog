@@ -1,0 +1,50 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../../../layouts/BlogPost.astro";
+import { render } from "astro:content";
+import { object } from "astro:schema";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const events = Object.keys(
+    Object.groupBy(
+      posts.map((post) => ({
+        id: post.id,
+        event: post.id.split("/").at(-2) || "",
+      })),
+      (post) => post.event
+    )
+  ).filter((event) => event);
+
+  const postPaths = posts.map((post) => post.id.split("/").at(-1));
+  console.log(postPaths);
+
+  const paths = [];
+  for (const event of events) {
+    for (const post of postPaths) {
+      paths.push({
+        params: { event, slug: post },
+        props: { post: posts.find((p) => p.id.endsWith(post!!)) },
+      });
+    }
+  }
+
+  return paths;
+  //   return posts.map((post) => ({
+  //     params: { slug: post.id, event: post.id.split("/").at(-2) },
+  //     props: { post },
+  //   }));
+}
+// type Props = {
+//   post: CollectionEntry<"blog">;
+//   siblings: CollectionEntry<"blog">[];
+// };
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content } = await render(post.post);
+---
+
+<BlogPost {...post.post.data}>
+  <Content />
+</BlogPost>
