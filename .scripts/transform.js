@@ -26,11 +26,9 @@ readdirSync(blogsDir).forEach((blog) => {
   if (statSync(blogPath).isDirectory()) {
     readdirSync(blogPath).forEach((blogFile) => {
       const blogFilePath = join(blogPath, blogFile);
-      if (statSync(blogFilePath).isFile()) {
-        if (blogFilePath.toLowerCase().includes("readme")) {
-          rmSync(blogFilePath);
-        }
-        transform(blogFilePath);
+      if (statSync(blogFilePath).isFile() && blogFilePath !== ".git") {
+        if (blogFilePath.toLowerCase().includes("readme")) rmSync(blogFilePath);
+        else transform(blogFilePath);
       }
     });
   }
