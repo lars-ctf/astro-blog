@@ -45,8 +45,7 @@ jobs:
           # cache-dependency-path: ${{ env.BUILD_PATH }}/${{ steps.detect-package-manager.outputs.lockfile }}
       # Run transform on markdown files contained by submodules
       - name: Transform Markdown
-        run: |
-          node ${{ github.workspace }}/.scripts/transform.js
+        run: node .scripts/transform.js
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
