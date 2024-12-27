@@ -1,0 +1,3 @@
+[submodule "src/content/blog/writeup-gpn22"]
+	path = src/content/blog/writeup-gpn22
+	url = git@github.com:lars-ctf/writeup-gpn22
