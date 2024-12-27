@@ -1,4 +1,4 @@
-import { statSync, readFileSync, writeFileSync, readdirSync } from "fs";
+import { statSync, readFileSync, writeFileSync, readdirSync, rmSync } from "fs";
 import { join } from "path";
 
 function transform(filePath) {
@@ -27,6 +27,9 @@ readdirSync(blogsDir).forEach((blog) => {
     readdirSync(blogPath).forEach((blogFile) => {
       const blogFilePath = join(blogPath, blogFile);
       if (statSync(blogFilePath).isFile()) {
+        if (blogFilePath.toLowerCase().includes("readme")) {
+          rmSync(blogFilePath);
+        }
         transform(blogFilePath);
       }
     });
