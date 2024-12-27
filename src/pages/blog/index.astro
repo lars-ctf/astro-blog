@@ -2,7 +2,7 @@
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_BASE } from "../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 
@@ -106,7 +106,7 @@ console.log(events);
           {
             events.map((event) => (
               <li>
-                <a href={`/astro-blog/blog/${event}/`}>
+                <a href={`${SITE_BASE}/blog/${event}/`}>
                   <h4 class="title">{event}</h4>
                 </a>
               </li>

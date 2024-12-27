@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { SITE_BASE } from "../consts";
 
 type Props = HTMLAttributes<"a">;
 
@@ -10,7 +11,7 @@ const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
 ---
 
 <a
-  href={"/astro-blog/" + href}
+  href={SITE_BASE + "/" + href}
   class:list={[className, { active: isActive }]}
   {...props}
 >
